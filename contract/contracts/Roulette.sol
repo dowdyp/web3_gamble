@@ -49,11 +49,12 @@ contract Roulette {
 
     function createNewGame() private {
         Game storage g = currentGame();
-        winners[games.length] = g.ppl[0]; //modify for actual random winner
+        uint x = uint(keccak256(abi.encodePacked(block.difficulty, block.timestamp))) % 9;
+        if(g.userPickedNums[x + 1] != address(0)) {
+            winners[games.length] = g.userPickedNums[x + 1];
+        }
         uint takehome = g.pot / 1000 * 950;
         accountsBal[msg.sender] += takehome;
-        winners[currentGame().id] = currentGame().ppl[0];
-        // pay winner etc
         freshGame();
         gameCount += 1;
     }
