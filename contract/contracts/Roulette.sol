@@ -11,7 +11,8 @@ contract Roulette {
         address[] ppl;
         uint[] bets;
         uint pplCounter;
-        mapping(address => uint) userPickedNums;
+        mapping(uint => address) userPickedNums;
+        mapping(address => bool) hasBet;
     }
 
     Game[] games;
@@ -68,10 +69,12 @@ contract Roulette {
     function bet(uint i) public payable notOwner returns (uint) {
         require(i <= 10, "bets must be between 1 and 10 inclusively");
         require(i > 0, "bets must be between 1 and 10 inclusively");
-        require(msg.value >= 500000, "minimum bet is 500 WEI");
+        require(msg.value >= 50000, "minimum bet is 50000 WEI");
         Game storage curr = currentGame();
-        require(curr.userPickedNums[msg.sender] == 0, "you have already placed a bet this game");
-        curr.userPickedNums[msg.sender] = i;
+        require(curr.userPickedNums[i] == address(0), "this number has already been bet on");
+        require(!curr.hasBet[msg.sender], "you have already placed a bet");
+        curr.userPickedNums[i] = msg.sender;
+        curr.hasBet[msg.sender] = true;
         curr.ppl.push(msg.sender);
         curr.bets.push(msg.value);
         curr.pot = curr.pot + msg.value;
