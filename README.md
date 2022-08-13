@@ -35,3 +35,6 @@ Online gambling nowadays relies heavily on users trusting the centralized entity
 
 ## Demo video
 [Demo](https://youtu.be/suQeloH_Zys)
+
+## Contributors
+ - Parker Dowdy dowdyp@wit.edu
