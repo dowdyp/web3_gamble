@@ -2,7 +2,6 @@
 Blockchain Technologies final project
 
 ## Introduction
----
 
 Online gambling nowadays relies heavily on users trusting the centralized entity. However, these platforms are far from open source and can very easily take advantage of customers. Even a slight increase in house edge can be unnoticeable to a trained eye, but make the world a difference in user RTP and gross profit. This project aims to be a proof-of-concept for on-chain gambling, all handled at execution time with no cron tasks.
 
@@ -35,4 +34,4 @@ Online gambling nowadays relies heavily on users trusting the centralized entity
  - run `npm start` from the `/web3ui/`, and you should be greeted by a snazzy little react dapp
 
 ## Demo video
-
+[Demo](https://youtu.be/suQeloH_Zys)
