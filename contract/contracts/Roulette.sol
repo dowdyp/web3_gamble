@@ -18,6 +18,9 @@ contract Roulette {
     Game[] games;
     address owner;
     uint gameCount;
+    uint numCount;
+    uint betCount;
+    uint prevNum;
     mapping(uint => address) public winners;
     mapping(address => uint) accountsBal;
 
@@ -37,6 +40,9 @@ contract Roulette {
         s.pot = 0;
         s.id = games.length - 1;
         gameCount = 0;
+        numCount = 6;
+        betCount = 5;
+        prevNum = block.timestamp;
     }
 
     function freshGame() private {
@@ -47,14 +53,21 @@ contract Roulette {
         s.pplCounter = 0;
     }
 
+
+    function randnum() public returns (uint) {
+        uint x = uint(keccak256(abi.encodePacked(block.difficulty, block.timestamp, prevNum))) % 6;
+        prevNum = x;
+        return prevNum;
+    }
+
     function createNewGame() private {
         Game storage g = currentGame();
-        uint x = uint(keccak256(abi.encodePacked(block.difficulty, block.timestamp))) % 9;
+        uint x = randnum();
         if(g.userPickedNums[x + 1] != address(0)) {
             winners[games.length] = g.userPickedNums[x + 1];
         }
         uint takehome = g.pot / 1000 * 950;
-        accountsBal[msg.sender] += takehome;
+        accountsBal[g.userPickedNums[x+1]] += takehome;
         freshGame();
         gameCount += 1;
     }
@@ -68,7 +81,7 @@ contract Roulette {
     }
 
     function bet(uint i) public payable notOwner returns (uint) {
-        require(i <= 10, "bets must be between 1 and 10 inclusively");
+        require(i <= numCount, "bets must be between 1 and 6 inclusively");
         require(i > 0, "bets must be between 1 and 10 inclusively");
         require(msg.value >= 50000, "minimum bet is 50000 WEI");
         Game storage curr = currentGame();

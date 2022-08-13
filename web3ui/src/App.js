@@ -76,7 +76,7 @@ const App = () => {
   }
 
   let nums = [];
-  for (let i = 1; i <= 10; i++) {
+  for (let i = 1; i <= 6; i++) {
     nums.push(<div key={i} className={`num-circle ${selectedNum === i ? "active" : ""}`} onClick={() => selectedNumHandler(i)}>{i}</div>)
   }
 
