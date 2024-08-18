@@ -38,11 +38,4 @@ Online gambling nowadays relies heavily on users trusting the centralized entity
 
 ## Contributors
 ### Parker Dowdy
- - Contract Development
- - UI Development
-### Ian Seto
- - UI
- - Presentation
-### George Powell
- - UI Testing
- - Presentation
+ - All development of contract and UI
